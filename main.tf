@@ -6,6 +6,12 @@ terraform {
     }
   }
 
+  backend "s3" {
+    bucket = "terraform-state-ruhickey"
+    key = "statefiles/state"
+    region = "eu-west-1"
+  }
+
   required_version = ">= 1.2.0"
 }
 
