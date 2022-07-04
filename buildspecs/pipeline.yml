@@ -18,8 +18,8 @@ phases:
       - "terraform plan | grep -q 'No changes.'"
       - "export SHOULD_APPLY=$?"
       - "terraform plan"
-      - "[[ $SHOULD_APPLY -eq 1 ]] && terraform apply -auto-approve"
+      - "if [[ $SHOULD_APPLY -eq 1 ]]; then terraform apply -auto-approve; else true; fi"
   post_build:
     commands:
       - "echo pipeline updated `date`"
-      - "[[ $SHOULD_APPLY -eq 1 ]] && aws codepipeline start-pipeline-execution --name tf-test-pipeline"
+      - "if [[ $SHOULD_APPLY -eq 1 ]]; then aws codepipeline start-pipeline-execution --name tf-test-pipeline; else true; fi"
