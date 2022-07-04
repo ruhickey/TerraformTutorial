@@ -15,9 +15,11 @@ phases:
       - terraform init
   build:
     commands:
+      - terraform plan | grep -q 'No changes.'
+      - export SHOULD_APPLY=$?
       - terraform plan
-      - terraform apply -auto-approve
+      - [[ $SHOULD_APPLY -eq 1 ]] && terraform apply -auto-approve
   post_build:
     commands:
       - echo pipeline updated `date`
-      - aws codepipeline start-pipeline-execution --name tf-test-pipeline
+      - [[ $SHOULD_APPLY -eq 1 ]] && aws codepipeline start-pipeline-execution --name tf-test-pipeline

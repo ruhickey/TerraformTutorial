@@ -143,9 +143,6 @@ resource "aws_codebuild_project" "terraform_pipeline_apply" {
     type = "CODEPIPELINE"
     buildspec = "buildspecs/pipeline.yml"
     git_clone_depth = 0
-    git_submodules_config {
-      fetch_submodules = false
-    }
   }
 }
 
@@ -170,10 +167,6 @@ resource "aws_codebuild_project" "terraform_plan" {
     type = "CODEPIPELINE"
     buildspec = "buildspecs/plan.yml"
     git_clone_depth = 0
-    git_submodules_config {
-      fetch_submodules = false
-    }
-
   }
 }
 
