@@ -11,15 +11,15 @@ phases:
       - "mv terraform /usr/local/bin"
   pre_build:
     commands:
-      - cd pipelines
-      - terraform init
+      - "cd pipelines"
+      - "terraform init"
   build:
     commands:
-      - terraform plan | grep -q 'No changes.'
-      - export SHOULD_APPLY=$?
-      - terraform plan
-      - [[ $SHOULD_APPLY -eq 1 ]] && terraform apply -auto-approve
+      - "terraform plan | grep -q 'No changes.'"
+      - "export SHOULD_APPLY=$?"
+      - "terraform plan"
+      - "[[ $SHOULD_APPLY -eq 1 ]] && terraform apply -auto-approve"
   post_build:
     commands:
-      - echo pipeline updated `date`
-      - [[ $SHOULD_APPLY -eq 1 ]] && aws codepipeline start-pipeline-execution --name tf-test-pipeline
+      - "echo pipeline updated `date`"
+      - "[[ $SHOULD_APPLY -eq 1 ]] && aws codepipeline start-pipeline-execution --name tf-test-pipeline"
