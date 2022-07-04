@@ -17,8 +17,9 @@ terraform {
 
 # This needs to be setup through the console so we just connect using ARN.
 data "aws_caller_identity" "current" {}
+data "aws_region" "current" {}
 locals {
-  github_connection_arn = "arn:aws:codestar-connections:eu-west-1:${data.aws_caller_identity.current.account_id}:connection/64454de3-d46a-46fc-968a-f2c044b024d8"
+  github_connection_arn = "arn:aws:codestar-connections:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:connection/64454de3-d46a-46fc-968a-f2c044b024d8"
 }
 
 resource "aws_s3_bucket" "source_bucket" {
@@ -257,7 +258,7 @@ resource "aws_codepipeline" "codepipeline" {
       version  = "1"
       run_order = 2
       configuration = {
-        ExternalEntityLink = "https://ruhickey/#{PlanOutput.CODEBUILD_BUILD_ID}"
+        ExternalEntityLink = "https://${data.aws_region.current.name}.console.aws.amazon.com/codesuite/codebuild/${data.aws_caller_identity.current.account_id}}/projects/PlanDevo/build/#{PlanOutput.CODEBUILD_BUILD_ID}/?region=${data.aws_region.current.name}"
       }
     }
 
