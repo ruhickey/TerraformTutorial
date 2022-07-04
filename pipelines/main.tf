@@ -258,7 +258,7 @@ resource "aws_codepipeline" "codepipeline" {
       version  = "1"
       run_order = 2
       configuration = {
-        ExternalEntityLink = "https://${data.aws_region.current.name}.console.aws.amazon.com/codesuite/codebuild/${data.aws_caller_identity.current.account_id}}/projects/PlanDevo/build/#{PlanOutput.CODEBUILD_BUILD_ID}/?region=${data.aws_region.current.name}"
+        ExternalEntityLink = "https://${data.aws_region.current.name}.console.aws.amazon.com/codesuite/codebuild/${data.aws_caller_identity.current.account_id}/projects/PlanDevo/build/#{PlanOutput.CODEBUILD_BUILD_ID}/?region=${data.aws_region.current.name}"
       }
     }
 
