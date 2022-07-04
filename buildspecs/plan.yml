@@ -1,5 +1,7 @@
 version: 0.2
-
+env:
+  exported-variables:
+    - CODEBUILD_BUILD_ID
 phases:
   install:
     commands:
