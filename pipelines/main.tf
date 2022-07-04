@@ -122,8 +122,8 @@ resource "aws_iam_role_policy_attachment" "codebuild_admin_plan_policy" {
   role       = aws_iam_role.codebuild_plan_role.name
 }
 
-resource "aws_codebuild_project" "terraform_plan" {
-  name         = "TerraformPlanV2"
+resource "aws_codebuild_project" "terraform_pipeline_apply" {
+  name         = "TerraformPipelineApply"
   service_role = aws_iam_role.codebuild_plan_role.arn
   build_timeout = 5
 
@@ -213,6 +213,23 @@ resource "aws_codepipeline" "codepipeline" {
       version  = "1"
       input_artifacts = ["SourceArtifact"]
       output_artifacts = ["PipelineArtifact"]
+
+      configuration = {
+        ProjectName = aws_codebuild_project.terraform_pipeline_apply.name
+      }
+    }
+  }
+
+  stage {
+    name = "Build"
+    action {
+      category = "Build"
+      name     = "Plan"
+      owner    = "AWS"
+      provider = "CodeBuild"
+      version  = "1"
+      input_artifacts = ["PipelineArtifact"]
+      output_artifacts = ["BuildArtifact"]
 
       configuration = {
         ProjectName = aws_codebuild_project.terraform_plan.name
