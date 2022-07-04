@@ -234,6 +234,7 @@ resource "aws_codepipeline" "codepipeline" {
 
   stage {
     name = "Devo"
+
     action {
       category = "Build"
       name     = "Plan"
@@ -241,8 +242,8 @@ resource "aws_codepipeline" "codepipeline" {
       provider = "CodeBuild"
       version  = "1"
       input_artifacts = ["SourceArtifact"]
-      output_artifacts = ["PlanArtifact"]
-
+      namespace = "PlanOutput"
+      run_order = 1
       configuration = {
         ProjectName = aws_codebuild_project.terraform_plan.name
       }
@@ -254,9 +255,9 @@ resource "aws_codepipeline" "codepipeline" {
       owner    = "AWS"
       provider = "Manual"
       version  = "1"
-
+      run_order = 2
       configuration = {
-        ExternalEntityLink = "https://ruhickey/"
+        ExternalEntityLink = "https://ruhickey/#{PlanOutput.CODEBUILD_BUILD_ID}"
       }
     }
 
@@ -267,8 +268,7 @@ resource "aws_codepipeline" "codepipeline" {
       provider = "CodeBuild"
       version  = "1"
       input_artifacts = ["SourceArtifact"]
-      output_artifacts = ["ApplyArtifact"]
-
+      run_order = 3
       configuration = {
         ProjectName = aws_codebuild_project.terraform_plan.name
       }
