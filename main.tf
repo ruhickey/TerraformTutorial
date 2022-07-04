@@ -19,14 +19,14 @@ provider "aws" {
   region = "eu-west-1"
 }
 
-resource "aws_instance" "app_server" {
-  ami     = data.aws_ami.amazon-linux-2.id
-  instance_type     = "t2.micro"
-
-  tags = {
-    Name = "RussellsExampleServer"
-  }
-}
+#resource "aws_instance" "app_server" {
+#  ami     = data.aws_ami.amazon-linux-2.id
+#  instance_type     = "t2.micro"
+#
+#  tags = {
+#    Name = "RussellsExampleServer"
+#  }
+#}
 
 data "aws_ami" "amazon-linux-2" {
   most_recent = true
