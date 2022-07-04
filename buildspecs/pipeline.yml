@@ -15,11 +15,7 @@ phases:
       - "terraform init"
   build:
     commands:
-      - "terraform plan | grep -q 'No changes.'"
-      - "export SHOULD_APPLY=$?"
-      - "terraform plan"
-      - "if [[ $SHOULD_APPLY -eq 1 ]]; then terraform apply -auto-approve; else true; fi"
+      - ./scripts/build.sh
   post_build:
     commands:
-      - "echo pipeline updated `date`"
-      - "if [[ $SHOULD_APPLY -eq 1 ]]; then aws codepipeline start-pipeline-execution --name tf-test-pipeline; else true; fi"
+      - ./scripts/post_build.sh
