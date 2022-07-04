@@ -12,7 +12,7 @@ phases:
       - terraform init
   build:
     commands:
-      - terraform plan -auto-approve
+      - terraform plan
   post_build:
     commands:
       - echo terraform plan completed on `date`
