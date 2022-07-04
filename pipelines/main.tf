@@ -241,10 +241,22 @@ resource "aws_codepipeline" "codepipeline" {
       provider = "CodeBuild"
       version  = "1"
       input_artifacts = ["SourceArtifact"]
-      output_artifacts = ["BuildArtifact"]
+      output_artifacts = ["PlanArtifact"]
 
       configuration = {
         ProjectName = aws_codebuild_project.terraform_plan.name
+      }
+    }
+
+    action {
+      name     = "ManualApproval"
+      category = "Approval"
+      owner    = "AWS"
+      provider = "Manual"
+      version  = "1"
+
+      configuration = {
+        ExternalEntityLink = "https://ruhickey/"
       }
     }
 
@@ -255,7 +267,7 @@ resource "aws_codepipeline" "codepipeline" {
       provider = "CodeBuild"
       version  = "1"
       input_artifacts = ["SourceArtifact"]
-      output_artifacts = ["BuildArtifact"]
+      output_artifacts = ["ApplyArtifact"]
 
       configuration = {
         ProjectName = aws_codebuild_project.terraform_plan.name
