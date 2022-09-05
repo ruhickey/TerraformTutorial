@@ -1,7 +1,8 @@
+---
 version: 0.2
 env:
   exported-variables:
-    - CODEBUILD_BUILD_ID
+    - "CODEBUILD_BUILD_ID"
 phases:
   install:
     commands:
@@ -11,11 +12,11 @@ phases:
       - "mv terraform /usr/local/bin"
   pre_build:
     commands:
-      - cd dev
-      - terraform init
+      - "cd aws/dev"
+      - "terraform init"
   build:
     commands:
-      - terraform plan
+      - "terraform plan"
   post_build:
     commands:
-      - echo terraform plan completed on `date`
+      - "echo terraform plan completed on `date`"

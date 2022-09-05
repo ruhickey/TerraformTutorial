@@ -1,7 +1,8 @@
+---
 version: 0.2
 env:
   exported-variables:
-    - CODEBUILD_BUILD_ID
+    - "CODEBUILD_BUILD_ID"
 phases:
   install:
     commands:
@@ -11,11 +12,11 @@ phases:
       - "mv terraform /usr/local/bin"
   pre_build:
     commands:
-      - "cd pipelines"
+      - "cd aws/pipelines"
       - "terraform init"
   build:
     commands:
-      - ./scripts/build.sh
+      - "./scripts/build.sh"
   post_build:
     commands:
-      - ./scripts/post_build.sh
+      - "./scripts/post_build.sh"
