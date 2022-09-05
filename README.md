@@ -1,8 +1,14 @@
 ## Terraform Pipeline Example
 
-### Development
+## Development
+### Amazon Web Services (AWS)
 #### Initial Setup
-This will create a code pipeline in AWS.  
+This will create a code pipeline in AWS.
+
+**NOTE: We work from aws directory so make sure to start there.**
+```bash
+cd aws
+```
 
 **NOTE: The Github Connection is a Hardcoded ARN as there is manual approval involved.**
 
@@ -33,6 +39,8 @@ This should create an EC2 instance called `ExampleServer-${USER}`. This is usefu
 Once all has been tested, you can push your code and it should create an EC2 instance
 called `ExampleServer-dev` through the pipeline.
 
-### Pipeline Updates
+#### Pipeline Updates
 When updating the pipeline to add new stages. You update the code and do a `terraform plan`.
 Once code is committed, the pipeline will automatically update itself.
+
+## Google Cloud Platform (GCP)
