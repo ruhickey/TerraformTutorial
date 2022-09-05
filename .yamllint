@@ -1,6 +1,7 @@
-extends: default
+---
+extends: "default"
 
 rules:
   line-length:
     max: 100
-  quoted-strings: enable
+  quoted-strings: "enable"
