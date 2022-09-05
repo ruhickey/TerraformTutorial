@@ -1,5 +1,7 @@
 ## Terraform Pipeline Example
 
+[![Yamllint GitHub Actions](https://github.com/ruhickey/TerraformTutorial/actions/workflows/yamllint.yml/badge.svg?branch=mainline)](https://github.com/ruhickey/TerraformTutorial/actions/workflows/yamllint.yml)
+
 ## Development
 ### Amazon Web Services (AWS)
 #### Initial Setup
